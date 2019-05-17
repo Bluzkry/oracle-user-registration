@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import axios from "axios/index";
 import Users from './components/users';
+import { getUsers, deleteUser } from "./services/userService";
 
 class App extends Component {
   state = {users: []};
 
   async componentDidMount() {
-    const { data } = await axios.get('https://reqres.in/api/users?page=1');
-    const { data: users } = data;
+    const users = await getUsers();
     this.setState({ users });
   }
 
@@ -17,7 +16,7 @@ class App extends Component {
     this.setState({ users });
 
     try {
-      await axios.delete(`https://reqres.in/api/users/${user.id}`);
+      await deleteUser(user.id);
     }
     catch (ex) {
       alert('We are unable to delete your user. Please try again later or contact us.');
