@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Users = ({ users }) => {
+const Users = ({ users, onDelete }) => {
   return (
     <div>
       <h1>List of Users</h1>
@@ -22,7 +22,14 @@ const Users = ({ users }) => {
             <td>{user.first_name} {user.last_name}</td>
             <td>{user.email}</td>
             <td><button className="btn btn-info">Update</button></td>
-            <td><button className="btn btn-danger">Delete</button></td>
+            <td>
+              <button
+                className="btn btn-danger"
+                onClick={() => onDelete(user)}
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         ))}
         </tbody>
