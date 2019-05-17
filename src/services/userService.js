@@ -7,6 +7,10 @@ export async function getUsers() {
   return users;
 }
 
+export async function updateUser(id, info) {
+  return axios.put(apiUrl + '/users/' + id, info);
+}
+
 export async function deleteUser(id) {
   return axios.delete(apiUrl + '/users/' + id);
 }

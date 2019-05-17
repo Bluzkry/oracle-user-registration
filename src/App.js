@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Users from './components/users';
-import { getUsers, deleteUser } from "./services/userService";
+import { getUsers, updateUser, deleteUser } from "./services/userService";
 
-class App extends Component {
+export default class App extends Component {
   state = {users: []};
 
   async componentDidMount() {
     const users = await getUsers();
+    users.map(user => user.editing = false);
     this.setState({ users });
   }
 
@@ -24,6 +25,40 @@ class App extends Component {
     }
   };
 
+  beginUpdate = user => {
+    const users = [...this.state.users];
+    const index = users.indexOf(user);
+    users[index] = {...users[index]};
+    users[index].editing = true;
+
+    this.setState({ users });
+  };
+
+  handleChange = ({ currentTarget: input }, user) => {
+    const users = [...this.state.users];
+    const index = users.indexOf(user);
+    users[index] = {...users[index]};
+    users[index][input.name] = input.value;
+
+    this.setState({ users });
+  };
+
+  update = async user => {
+    const users = [...this.state.users];
+    const index = users.indexOf(user);
+    users[index] = {...users[index]};
+    users[index].editing = false;
+
+    this.setState({ users });
+
+    try {
+      await updateUser(user.id, user);
+    }
+    catch (ex) {
+      alert('We are unable to update your user. Please try again later or contact us.');
+    }
+  };
+
   render() {
     const { users } = this.state;
 
@@ -32,10 +67,11 @@ class App extends Component {
         <Users
           users={users}
           onDelete={this.handleDelete}
+          onUpdateBegin={this.beginUpdate}
+          onUpdate={this.handleChange}
+          onUpdateEnd={this.update}
         />
       </div>
     );
   }
 }
-
-export default App;
