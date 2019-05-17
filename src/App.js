@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios/index";
+import Users from './components/users';
 
 class App extends Component {
   state = {users: []};
@@ -11,8 +12,13 @@ class App extends Component {
   }
 
   render() {
+    const { users } = this.state;
+
     return (
       <div className="App">
+        <Users
+          users={users}
+        />
       </div>
     );
   }
