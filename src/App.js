@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Users from './components/users';
 import RegisterUser from './components/registerUser';
-import { getUsers, updateUser, deleteUser } from "./services/userService";
+import { getUsers, addUser, updateUser, deleteUser } from "./services/userService";
 
 export default class App extends Component {
   state = {users: []};
@@ -13,7 +13,19 @@ export default class App extends Component {
   }
 
   handleAdd = async user => {
-    console.log(user);
+    try {
+      await addUser(user);
+
+      user.id = new Date().getUTCMilliseconds();
+      user.editing = false;
+      const users = [...this.state.users];
+      users.push(user);
+
+      this.setState({ users });
+    }
+    catch (ex) {
+      alert('We unable to add your user. Please try again later or contact us.');
+    }
   };
 
   handleDelete = async user => {

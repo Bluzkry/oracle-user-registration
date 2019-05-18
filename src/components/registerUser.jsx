@@ -3,7 +3,11 @@ import Joi from "joi-browser";
 
 export default class RegisterUser extends Component {
   state = {
-    user: { first_name: "", last_name: "", email: "", password: "" },
+    user: {
+      first_name: "",
+      last_name: "",
+      email: "",
+    },
     errors: {}
   };
 
@@ -17,11 +21,7 @@ export default class RegisterUser extends Component {
     email: Joi.string()
       .required()
       .email()
-      .label("Email"),
-    password: Joi.string()
-      .required()
-      .min(5)
-      .label("Password"),
+      .label("Email")
   };
 
   validate = () => {
@@ -70,7 +70,7 @@ export default class RegisterUser extends Component {
     } else {
       this.props.onAdd(this.state.user);
       this.setState({
-        user: { first_name: "", last_name: "", email: "", password: ""},
+        user: { first_name: "", last_name: "", email: ""},
         errors: {},
       });
     }
@@ -114,18 +114,6 @@ export default class RegisterUser extends Component {
               onChange={this.handleChange}
             />
             {errors.email && <div className="alert alert-danger">{errors.email}</div>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              value={user.password}
-              onChange={this.handleChange}
-            />
-            {errors.password && <div className="alert alert-danger">{errors.password}</div>}
           </div>
 
           <button disabled={this.validate()} className="btn btn-primary">

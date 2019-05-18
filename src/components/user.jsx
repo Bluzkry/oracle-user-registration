@@ -5,7 +5,12 @@ import UserNormal from './_userNormal';
 const User = ({ user, onUpdateBegin, onUpdate, onUpdateEnd, onDelete }) => {
   return(
     <tr key={user.id}>
-      <td><img src={user.avatar} alt={user.first_name} /></td>
+      <td>
+        {user.avatar ?
+          <img src={user.avatar} alt={user.first_name} /> :
+          <img className="blank_profile" src="./profileBlank.png" alt="Blank Profile" />
+        }
+      </td>
       {user.editing ?
         <UserEditing
           user={user}
