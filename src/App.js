@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Users from './components/users';
+import RegisterUser from './components/registerUser';
 import { getUsers, updateUser, deleteUser } from "./services/userService";
 
 export default class App extends Component {
@@ -10,6 +11,10 @@ export default class App extends Component {
     users.map(user => user.editing = false);
     this.setState({ users });
   }
+
+  handleAdd = async user => {
+    console.log(user);
+  };
 
   handleDelete = async user => {
     const originalUsers = this.state.users;
@@ -70,6 +75,9 @@ export default class App extends Component {
           onUpdateBegin={this.beginUpdate}
           onUpdate={this.handleChange}
           onUpdateEnd={this.update}
+        />
+        <RegisterUser
+          onAdd={this.handleAdd}
         />
       </div>
     );
