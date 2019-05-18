@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import Users from './components/users';
 import RegisterUser from './components/registerUser';
 import { getUsers, addUser, updateUser, deleteUser } from "./services/userService";
 
 export default class App extends Component {
-  state = {users: []};
+  state = {
+    users: [],
+    sortColumn: { path: "first_name", order: "asc" }
+  };
 
   async componentDidMount() {
     const users = await getUsers();
     users.map(user => user.editing = false);
     this.setState({ users });
   }
+
+  handleSort = sortColumn => {
+    const sortedUsers = _.orderBy(this.state.users, [sortColumn.path], [sortColumn.order]);
+    this.setState({ sortColumn, users: sortedUsers });
+  };
 
   handleAdd = async user => {
     try {
@@ -77,12 +86,14 @@ export default class App extends Component {
   };
 
   render() {
-    const { users } = this.state;
+    const { users, sortColumn } = this.state;
 
     return (
       <div className="App">
         <Users
           users={users}
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
           onDelete={this.handleDelete}
           onUpdateBegin={this.beginUpdate}
           onUpdate={this.handleChange}

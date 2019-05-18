@@ -1,3 +1,7 @@
+.clickable {
+  cursor: pointer;
+}
+
 .blank_profile {
   width: 128px;
 }

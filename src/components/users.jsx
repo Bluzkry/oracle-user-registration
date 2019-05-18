@@ -1,37 +1,78 @@
-import React from 'react';
+import React, { Component } from 'react';
 import User from './user';
 
-const Users = ({ users, onUpdateBegin, onUpdate, onUpdateEnd, onDelete }) => {
-  return (
-    <div>
-      <h1>List of Users</h1>
+export default class Users extends Component {
+  columns = [
+    { label: "User", key: "user" },
+    { path: "first_name", label: "First Name" },
+    { path: "last_name", label: "Last Name" },
+    { path: "email", label: "Email" },
+    { label: "Update", key: "update" },
+    { label: "Delete", key: "delete" },
+  ];
 
-      <table className="table">
-        <thead className="thead-light">
-        <tr>
-          <th scope="col">User</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">E-mail</th>
-          <th scope="col">Update</th>
-          <th scope="col">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        {users.map(user => (
-          <User
-            key={user.id}
-            user={user}
-            onUpdateBegin={onUpdateBegin}
-            onUpdate={onUpdate}
-            onUpdateEnd={onUpdateEnd}
-            onDelete={onDelete}
-          />
-        ))}
-        </tbody>
-      </table>
-    </div>
-  )
+  raiseSort = path => {
+    if (path) {
+      const sortColumn = { ...this.props.sortColumn };
+      if (sortColumn.path === path) {
+        sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+      } else {
+        sortColumn.path = path;
+        sortColumn.order = "asc";
+      }
+      this.props.onSort(sortColumn);
+    }
+  };
+
+  renderSortIcon = column => {
+    const { sortColumn } = this.props;
+
+    if (column.path !== sortColumn.path) {
+      return null;
+    }
+
+    if (sortColumn.order === "asc") {
+      return <i className="fa fa-sort-asc" />;
+    } else {
+      return <i className="fa fa-sort-desc" />;
+    }
+  };
+
+  render() {
+    const { users, onUpdateBegin, onUpdate, onUpdateEnd, onDelete } = this.props;
+
+    return (
+      <div>
+        <h1>List of Users</h1>
+
+        <table className="table">
+          <thead className="thead-light">
+          <tr>
+            {this.columns.map(column => (
+              <th
+                className="clickable"
+                key={column.path || column.key}
+                onClick={() => this.raiseSort(column.path)}
+              >
+                {column.label} {this.renderSortIcon(column)}
+              </th>
+            ))}
+          </tr>
+          </thead>
+          <tbody>
+          {users.map(user => (
+            <User
+              key={user.id}
+              user={user}
+              onUpdateBegin={onUpdateBegin}
+              onUpdate={onUpdate}
+              onUpdateEnd={onUpdateEnd}
+              onDelete={onDelete}
+            />
+          ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 };
-
-export default Users;
