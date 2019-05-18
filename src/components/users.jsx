@@ -43,7 +43,7 @@ export default class Users extends Component {
 
     return (
       <div>
-        <h1>List of Users</h1>
+        <h2>List of Users</h2>
 
         <table className="table">
           <thead className="thead-light">

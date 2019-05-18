@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import Header from './components/header';
 import Users from './components/users';
 import RegisterUser from './components/registerUser';
 import { getUsers, addUser, updateUser, deleteUser } from "./services/userService";
@@ -90,6 +91,7 @@ export default class App extends Component {
 
     return (
       <div className="App">
+        <Header />
         <Users
           users={users}
           sortColumn={sortColumn}

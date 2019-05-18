@@ -81,7 +81,7 @@ export default class RegisterUser extends Component {
 
     return (
       <div>
-        <h1>Register a New User</h1>
+        <h2>Register a New User</h2>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="first_name">First Name</label>
