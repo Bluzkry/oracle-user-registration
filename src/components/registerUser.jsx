@@ -80,7 +80,7 @@ export default class RegisterUser extends Component {
     const { errors, user } = this.state;
 
     return (
-      <div>
+      <aside>
         <h2>Register a New User</h2>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -121,7 +121,7 @@ export default class RegisterUser extends Component {
           </button>
 
         </form>
-      </div>
+      </aside>
     )
   }
 }

@@ -91,19 +91,21 @@ export default class App extends Component {
 
     return (
       <div className="App">
-        <Header />
-        <Users
-          users={users}
-          sortColumn={sortColumn}
-          onSort={this.handleSort}
-          onDelete={this.handleDelete}
-          onUpdateBegin={this.beginUpdate}
-          onUpdate={this.handleChange}
-          onUpdateEnd={this.update}
-        />
-        <RegisterUser
-          onAdd={this.handleAdd}
-        />
+        <div className="container">
+          <Header />
+          <Users
+            users={users}
+            sortColumn={sortColumn}
+            onSort={this.handleSort}
+            onDelete={this.handleDelete}
+            onUpdateBegin={this.beginUpdate}
+            onUpdate={this.handleChange}
+            onUpdateEnd={this.update}
+          />
+          <RegisterUser
+            onAdd={this.handleAdd}
+          />
+        </div>
       </div>
     );
   }

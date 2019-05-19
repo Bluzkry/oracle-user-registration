@@ -42,7 +42,7 @@ export default class Users extends Component {
     const { users, onUpdateBegin, onUpdate, onUpdateEnd, onDelete } = this.props;
 
     return (
-      <div>
+      <main>
         <h2>List of Users</h2>
 
         <table className="table">
@@ -72,7 +72,7 @@ export default class Users extends Component {
           ))}
           </tbody>
         </table>
-      </div>
+      </main>
     )
   }
 };

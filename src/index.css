@@ -1,3 +1,19 @@
+.App {
+  background-image: url("/tiles.jpg");
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 1% 0;
+}
+
+header, main, aside {
+  padding: 2%;
+  margin: 3% 0;
+  border-radius: 8px;
+  background-color: rgba(255, 245, 238, 0.90);
+}
+
 .clickable {
   cursor: pointer;
 }
